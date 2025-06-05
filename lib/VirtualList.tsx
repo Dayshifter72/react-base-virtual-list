@@ -47,6 +47,7 @@ export type VirtualListProps<ITEM> = {
    */
   renderFoot?: () => ReactNode,
   className?: string,
+  innerClassName?: string,
   style?: React.CSSProperties,
 } & Partial<typeof defaultProps>
 
@@ -234,7 +235,7 @@ export const VirtualList = forwardRef(function <ITEM>(
   // 
   return <div ref={list} onScroll={handleScroll} className={props.className} style={{ overflow: 'auto', ...props.style }}>
     {props.renderHead?.()}
-    <div ref={listInner} style={{ display: 'flex', flexDirection: 'column', ...(props.virtual && listInnerStyle) }}>
+    <div className={props.innerClassName} ref={listInner} style={{ display: 'flex', flexDirection: 'column', ...(props.virtual && listInnerStyle) }}>
       {visible.map((item, i) => props.renderItem(item, visibleIndices[i]))}
     </div>
     {props.renderFoot?.()}
